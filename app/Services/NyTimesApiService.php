@@ -19,7 +19,7 @@ class NyTimesApiService extends BaseApiService implements NewsServiceInterface
         'pub_date',
         'web_url',
         'news_desk',
-        'source'
+        'source',
     ];
 
     public function fetchArticles(): ?Collection
@@ -27,11 +27,13 @@ class NyTimesApiService extends BaseApiService implements NewsServiceInterface
         try {
             $response = Http::get($this->getApiUrl())->throw();
             $results = $response->json('response.docs');
+
             return $results
                 ? $this->formatResponse($results)
                 : null;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return null;
         }
     }
@@ -52,13 +54,15 @@ class NyTimesApiService extends BaseApiService implements NewsServiceInterface
                             'url' => $item['web_url'],
                             'category' => $item['news_desk'],
                             'image_url' => $this->getArticleImageUrl($item),
-                            'source' => $item['source']
+                            'source' => $item['source'],
                         ];
                     }
+
                     return null;
                 })
-                ->filter(fn($item) => $item != null);
+                ->filter(fn ($item) => $item != null);
         }
+
         return null;
     }
 
@@ -66,16 +70,16 @@ class NyTimesApiService extends BaseApiService implements NewsServiceInterface
     {
         return
             config('services.ny_times.api_url')
-            . '?api-key='
-            . config('services.ny_times.api_key');
+            .'?api-key='
+            .config('services.ny_times.api_key');
     }
 
     public function getArticleImageUrl(array $item): ?string
     {
         $path = Arr::get($item, 'multimedia.0.url');
+
         return $path
-            ? config('services.ny_times.url') . '/' . $path
+            ? config('services.ny_times.url').'/'.$path
             : null;
     }
-
 }

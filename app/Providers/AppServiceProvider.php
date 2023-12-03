@@ -9,7 +9,6 @@ use App\Services\NewsApiService;
 use App\Services\NyTimesApiService;
 use Illuminate\Support\ServiceProvider;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**

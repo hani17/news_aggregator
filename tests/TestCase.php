@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
             'url',
             'category',
             'image_url',
-            'source'
+            'source',
         ]);
     }
 }

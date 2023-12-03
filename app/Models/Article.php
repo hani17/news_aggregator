@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends Model
 {
-    use HasFactory;
     use Filterable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

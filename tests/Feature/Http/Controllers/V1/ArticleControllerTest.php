@@ -30,9 +30,9 @@ class ArticleControllerTest extends TestCase
                         'url',
                         'image_url',
                         'category',
-                        'source'
-                    ]
-                ]
+                        'source',
+                    ],
+                ],
             ]);
     }
 
@@ -42,7 +42,7 @@ class ArticleControllerTest extends TestCase
             ->has(Article::factory()->count(10))
             ->create();
 
-        $res = $this->getJson(self::ARTICLES_URL . '/?category=' .$category->id)
+        $res = $this->getJson(self::ARTICLES_URL.'/?category='.$category->id)
             ->assertOk();
 
         $articles = $res->json('data');
@@ -58,7 +58,7 @@ class ArticleControllerTest extends TestCase
             ->has(Article::factory()->count(10))
             ->create();
 
-        $res = $this->getJson(self::ARTICLES_URL . '/?source=' .$source->id)
+        $res = $this->getJson(self::ARTICLES_URL.'/?source='.$source->id)
             ->assertOk();
 
         $articles = $res->json('data');
@@ -74,14 +74,14 @@ class ArticleControllerTest extends TestCase
         $dateTimeInPast = Carbon::now()->subWeek();
 
         Article::factory()->count(5)->create([
-            'published_at' => $dateTimeInFuture
+            'published_at' => $dateTimeInFuture,
         ]);
 
         Article::factory()->count(5)->create([
-            'published_at' => $dateTimeInPast
+            'published_at' => $dateTimeInPast,
         ]);
 
-        $res = $this->getJson(self::ARTICLES_URL . '/?date=' . $dateTimeInFuture->format('Y-m-d') )
+        $res = $this->getJson(self::ARTICLES_URL.'/?date='.$dateTimeInFuture->format('Y-m-d'))
             ->assertOk();
 
         $articles = $res->json('data');
@@ -94,7 +94,7 @@ class ArticleControllerTest extends TestCase
         $searchArticle = Article::factory()->create();
         Article::factory()->count(5)->create();
 
-        $res = $this->getJson(self::ARTICLES_URL . '/?q=' . $searchArticle->title)
+        $res = $this->getJson(self::ARTICLES_URL.'/?q='.$searchArticle->title)
             ->assertOk();
 
         $article = $res->json('data.0');

@@ -10,7 +10,7 @@ class ArticleFilter implements BaseFilterInterface
     public function apply(Builder $query): void
     {
         if ($q = request()->input('q')) {
-            $query->where('title', 'LIKE', '%' . $q . '%');
+            $query->where('title', 'LIKE', '%'.$q.'%');
         }
 
         if ($source = request()->input('source')) {

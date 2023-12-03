@@ -23,7 +23,7 @@ class ArticleResource extends JsonResource
             'url' => $this->url,
             'image_url' => $this->image_url,
             'category' => new CategoryResource($this->whenLoaded('category')),
-            'source' => new SourceResource($this->whenLoaded('source'))
+            'source' => new SourceResource($this->whenLoaded('source')),
         ];
     }
 }

@@ -81,12 +81,13 @@ class AggregatorService
             $source = $item['source'] ?
                 $sources->firstWhere('name', $item['source'])
                 : null;
+
             return array_merge(
                 Arr::except($item, ['category', 'source']),
                 [
                     'category_id' => $category?->id,
                     'source_id' => $source?->id,
-                    'published_at' => Carbon::parse($item['published_at'])
+                    'published_at' => Carbon::parse($item['published_at']),
                 ]
             );
         });

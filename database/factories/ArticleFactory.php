@@ -20,6 +20,7 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         $api_id = Str::random(32);
+
         return [
             'title' => fake()->sentence,
             'published_at' => fake()->dateTime,

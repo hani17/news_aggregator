@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class NewsApiService extends BaseApiService implements NewsServiceInterface
 {
-
     /**
      * @var array<string>
      */
@@ -18,7 +17,7 @@ class NewsApiService extends BaseApiService implements NewsServiceInterface
         'title',
         'publishedAt',
         'url',
-        'source'
+        'source',
     ];
 
     public function fetchArticles(): ?Collection
@@ -26,11 +25,13 @@ class NewsApiService extends BaseApiService implements NewsServiceInterface
         try {
             $response = Http::get($this->getApiUrl())->throw();
             $results = $response->json('articles');
+
             return $results
                 ? $this->formatResponse($results)
                 : null;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return null;
         }
     }
@@ -51,13 +52,15 @@ class NewsApiService extends BaseApiService implements NewsServiceInterface
                             'url' => $item['url'],
                             'category' => null,
                             'image_url' => $item['urlToImage'] ?? null,
-                            'source' => $item['source']['name'] ?? null
+                            'source' => $item['source']['name'] ?? null,
                         ];
                     }
+
                     return null;
                 })
-                ->filter(fn($item) => $item != null);
+                ->filter(fn ($item) => $item != null);
         }
+
         return null;
     }
 
@@ -65,8 +68,8 @@ class NewsApiService extends BaseApiService implements NewsServiceInterface
     {
         return
             config('services.news_api.api_url')
-            . '?apiKey='
-            . config('services.news_api.api_key')
-            . '&country=us';
+            .'?apiKey='
+            .config('services.news_api.api_key')
+            .'&country=us';
     }
 }

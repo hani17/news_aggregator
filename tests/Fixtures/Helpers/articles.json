@@ -1,0 +1,20 @@
+[
+    {
+        "api_id": "world/2022/oct/21/russia-ukraine-war-latest-what-we-know-on-day-240-of-the-invasion",
+        "title": "Russia-Ukraine war latest: what we know on day 240 of the invasion",
+        "published_at": "2022-10-21T14:06:14Z",
+        "url": "https://www.theguardian.com/world/2022/oct/21/russia-ukraine-war-latest-what-we-know-on-day-240-of-the-invasion",
+        "image_url": "https://content.guardianapis.com/world/2022/oct/21/russia-ukraine-war-latest-what-we-know-on-day-240-of-the-invasion",
+        "category": "news",
+        "source": "The Guardian"
+    },
+    {
+        "api_id": "nyt://article/5c61adf8-caae-5e31-82f9-a9ace68eea26",
+        "title": "The authorities said the suspect had serious psychiatric disorders and told the police he was upset over the death of Muslims around the world, including in Gaza.",
+        "published_at": "2022-10-21T14:06:14Z",
+        "url": "https://www.nytimes.com/2023/12/02/world/europe/paris-knife-attack.html",
+        "image_url": "https://content.guardianapis.com/images/2023/12/02/multimedia/02france-attack-jbhc/02france-attack-jbhc-articleLarge.jpg",
+        "category": "Foreign",
+        "source": "The New York Times"
+    }
+]

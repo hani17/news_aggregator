@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class GuardianApiServiceTest extends TestCase
 {
-
     protected $body;
 
     public function setUp(): void
@@ -23,20 +22,20 @@ class GuardianApiServiceTest extends TestCase
     public function test_it_fetches_articles_from_guardian_api_successfully(): void
     {
         Http::fake([
-            'https://content.guardianapis.com/*' => Http::response($this->body, Response::HTTP_OK)
+            'https://content.guardianapis.com/*' => Http::response($this->body, Response::HTTP_OK),
         ]);
         Log::shouldReceive('error')->never();
 
         $service = new GuardianApiService();
         $article = $service->fetchArticles()->first();
 
-        $this->getArticleFields()->each(fn($i) => $this->assertArrayHasKey($i, $article));
+        $this->getArticleFields()->each(fn ($i) => $this->assertArrayHasKey($i, $article));
     }
 
     public function test_it_calculates_correct_hash_from_guardian_api_id(): void
     {
         Http::fake([
-            'https://content.guardianapis.com/*' => Http::response($this->body, Response::HTTP_OK)
+            'https://content.guardianapis.com/*' => Http::response($this->body, Response::HTTP_OK),
         ]);
         Log::shouldReceive('error')->never();
 
@@ -49,7 +48,7 @@ class GuardianApiServiceTest extends TestCase
     public function test_it_logs_error_and_return_null_from_fetchArticles_when_http_error_happens(): void
     {
         Http::fake([
-            'https://content.guardianapis.com/*' => Http::response($this->body, Response::HTTP_INTERNAL_SERVER_ERROR)
+            'https://content.guardianapis.com/*' => Http::response($this->body, Response::HTTP_INTERNAL_SERVER_ERROR),
         ]);
         Log::shouldReceive('error');
 

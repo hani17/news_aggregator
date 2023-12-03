@@ -33,17 +33,17 @@ return [
 
     'guardian' => [
         'api_url' => env('GUARDIAN_CONTENT_API_URL'),
-        'api_key' => env('GUARDIAN_API_KEY')
+        'api_key' => env('GUARDIAN_API_KEY'),
     ],
 
     'ny_times' => [
         'url' => env('NY_TIMES_URL'),
         'api_url' => env('NY_TIMES_API_URL'),
-        'api_key' => env('NY_TIMES_API_KEY')
+        'api_key' => env('NY_TIMES_API_KEY'),
     ],
 
     'news_api' => [
         'api_url' => env('NEWS_API_URL'),
-        'api_key' => env('NEWS_API_KEY')
+        'api_key' => env('NEWS_API_KEY'),
     ],
 ];

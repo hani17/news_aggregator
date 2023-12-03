@@ -8,7 +8,6 @@ use App\Models\Source;
 
 class SourceController extends Controller
 {
-
     public function index()
     {
         return SourceResource::collection(

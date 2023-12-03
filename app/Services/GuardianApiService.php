@@ -9,10 +9,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-
 class GuardianApiService extends BaseApiService implements NewsServiceInterface
 {
-
     /**
      * @var array<string>
      */
@@ -20,7 +18,7 @@ class GuardianApiService extends BaseApiService implements NewsServiceInterface
         'webTitle',
         'webPublicationDate',
         'webUrl',
-        'pillarName'
+        'pillarName',
     ];
 
     public function fetchArticles(): ?Collection
@@ -28,11 +26,13 @@ class GuardianApiService extends BaseApiService implements NewsServiceInterface
         try {
             $response = Http::get($this->getApiUrl())->throw();
             $results = $response->json('response.results');
+
             return $results
                 ? $this->formatResponse($results)
                 : null;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+
             return null;
         }
     }
@@ -56,10 +56,12 @@ class GuardianApiService extends BaseApiService implements NewsServiceInterface
                             'source' => SourceName::GUARDIAN->value,
                         ];
                     }
+
                     return null;
                 })
-                ->filter(fn($item) => $item != null);
+                ->filter(fn ($item) => $item != null);
         }
+
         return null;
     }
 
@@ -67,9 +69,8 @@ class GuardianApiService extends BaseApiService implements NewsServiceInterface
     {
         return
             config('services.guardian.api_url')
-            . '?api-key='
-            . config('services.guardian.api_key')
-            . '&show-fields=thumbnail';
+            .'?api-key='
+            .config('services.guardian.api_key')
+            .'&show-fields=thumbnail';
     }
-
 }
