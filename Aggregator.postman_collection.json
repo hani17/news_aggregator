@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "f3bbff27-1f02-4069-b9e8-acda12037820",
+		"name": "Aggregator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Articles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8855/api/v1/articles?page=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8855",
+					"path": [
+						"api",
+						"v1",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8855/api/v1/sources",
+					"host": [
+						"localhost"
+					],
+					"port": "8855",
+					"path": [
+						"api",
+						"v1",
+						"sources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8855/api/v1/categories",
+					"host": [
+						"localhost"
+					],
+					"port": "8855",
+					"path": [
+						"api",
+						"v1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

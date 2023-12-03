@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "initializing in progress...."
+
+echo "Copying .env.example .env in progress...."
+cp .env.example .env
+echo "Copying .env.example .env Done"
+
+if [ -f ./.env ]; then
+    source ./.env
+fi
+
+echo "Installing the app using docker composer image in progress...."
+docker run --rm -it -v "$PWD":/app -u "$(id -u)" composer install
+echo "Installing Done"
+
+echo "running laravel sail, docker containers are going to be built it may take time...."
+./vendor/bin/sail up -d
+echo "running laravel sail Done"
+
+echo "please navigate to ${APP_URL}:${APP_PORT}"
+
