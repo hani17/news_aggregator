@@ -51,35 +51,74 @@ class AggregatorService
 
     public function saveData(Collection $data): void
     {
+        $this->saveArticles(
+            $data,
+            $this->saveCategories($data),
+            $this->saveSources($data)
+        );
+    }
+
+    /**
+     * @param Collection $data
+     * @return Collection<Category>
+     */
+    public function saveCategories(Collection $data): Collection
+    {
         $categoriesNames = $data->pluck('category')
             ->unique()
             ->filter(fn ($i) => $i != null)
             ->map(fn ($i) => ['name' => $i]);
 
+        $categories = collect();
+
+        if ($categoriesNames->isNotEmpty()) {
+            Category::upsert($categoriesNames->toArray(), ['name']);
+            $categories = Category::whereIn('name', $categoriesNames->pluck('name'))
+                ->get();
+        }
+
+        return $categories;
+    }
+
+    /**
+     * @param Collection $data
+     * @return Collection<Source>
+     */
+    public function saveSources(Collection $data): Collection
+    {
         $sourcesNames = $data->pluck('source')
             ->unique()
             ->filter(fn ($i) => $i != null)
             ->map(fn ($i) => ['name' => $i]);
 
+        $sources = collect();
+
         if ($sourcesNames->isNotEmpty()) {
             Source::upsert($sourcesNames->toArray(), ['name']);
+            $sources = Source::whereIn('name', $sourcesNames->pluck('name'))
+                ->get();
         }
 
-        if ($categoriesNames->isNotEmpty()) {
-            Category::upsert($categoriesNames->toArray(), ['name']);
-        }
+        return $sources;
+    }
 
-        $categories = Category::whereIn('name', $categoriesNames->pluck('name'))
-            ->get();
-        $sources = Source::whereIn('name', $sourcesNames->pluck('name'))
-            ->get();
-
+    /**
+     * @param Collection $data
+     * @param Collection<Category> $categories
+     * @param Collection<Source> $sources
+     */
+    public function saveArticles(Collection $data, Collection $categories, Collection $sources): void
+    {
         $articles = $data->map(function ($item) use ($categories, $sources) {
-            $category = $item['category'] ?
-                $categories->firstWhere('name', $item['category'])
+            $categoryName = Arr::get($item, 'category');
+            $sourceName = Arr::get($item, 'source');
+
+            $category = $categories->isNotEmpty() && $categoryName
+                ? $categories->firstWhere('name', $categoryName)
                 : null;
-            $source = $item['source'] ?
-                $sources->firstWhere('name', $item['source'])
+
+            $source = $sources->isNotEmpty() && $sourceName
+                ? $sources->firstWhere('name', $sourceName)
                 : null;
 
             return array_merge(
